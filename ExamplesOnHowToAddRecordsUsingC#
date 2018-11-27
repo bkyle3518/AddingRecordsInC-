@@ -1,0 +1,211 @@
+Below is the code that I used to create the tables and connection strings to populate textboxes and lables on the application
+Below all this I have the back end code used to actually add the record into the database and the correct tables
+
+<asp:Content ID="Content1" ContentPlaceHolderID="Content1" Runat="Server">
+    <link href="../App_Themes/Gridview.css" rel="stylesheet" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+            border: 1px solid #808080;
+            background-color: #C0C0C0;
+
+        }
+        .auto-style4 {
+            height: 76px;
+        }
+        .auto-style7 {
+            height: 75px;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" Runat="Server">
+      <div id="header">
+           Player Registration
+        </div>
+           <div>
+
+
+               <table class="auto-style1" style="empty-cells: hide">
+                     <tr>
+                       <td class="auto-style4" style="font-size: larger">PlayPlayers Age Group (4 or 5 Year Old)</td>
+                       <td class="auto-style4" colspan="2">
+                           <asp:DropDownList ID="ddlAgeGroup" runat="server" DataSourceID="SqlDataSourceNew" DataTextField="strAge" DataValueField="intAgeGroupID"></asp:DropDownList>
+                           <asp:SqlDataSource ID="SqlDataSourceNew" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT * FROM [TAgeGroups]"></asp:SqlDataSource>
+                           <asp:SqlDataSource ID="SqlDataSourceAgeGroup" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [intAgeGroupID], [strAge] FROM [TAgeGroups]"></asp:SqlDataSource>
+                        </td>
+                       <tr>
+                       <td class="auto-style4" style="font-size: larger">Players Name First/Middle/Last>
+                       <td class="auto-style4">
+                           <asp:TextBox ID="txtFirstName" placeholder="First" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName" ErrorMessage="*Required"></asp:RequiredFieldValidator>
+                       </td>
+                       <td class="auto-style4">
+                           <asp:TextBox ID="txtMiddleName" placeholder="Middle" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvMiddleName" runat="server" ControlToValidate="txtMiddleName" ErrorMessage="*Required"></asp:RequiredFieldValidator>
+                       </td>
+                       <td class="auto-style4">
+                           <asp:TextBox ID="txtLastName" placeholder="Last" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName" ErrorMessage="*Required"></asp:RequiredFieldValidator>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">Date Of Birth</td>
+                       <td class="auto-style7" colspan="2">
+                           <asp:TextBox ID="txtDateOfBirth" placeholder="mm/dd/yyyy" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvBirthDate" runat="server" ErrorMessage="*Required" ControlToValidate="txtDateOfBirth"></asp:RequiredFieldValidator>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">GendGender</td>
+                       <td class="auto-style7" colspan="2">
+                           <asp:DropDownList ID="ddlGender" runat="server" Height="32px" DataSourceID="SqlDataSource3" DataTextField="strGender" DataValueField="intGenderID">
+                           <asp:ListItem Text="--Select a Gender--" Value="0" />
+                           </asp:DropDownList>
+                           <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [intGenderID], [strGender] FROM [TGenders]"></asp:SqlDataSource>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">Address>
+                       <td class="auto-style7" colspan="2">
+                           <asp:TextBox ID="txtAddress" placeholder="Address" runat="server" Width="250px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ErrorMessage="*Required" ControlToValidate="txtAddress"></asp:RequiredFieldValidator>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">CityCity/State/Zip</td>
+                       <td class="auto-style7">
+                           <asp:TextBox ID="txtCity" placeholder="City" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvCity" runat="server" ErrorMessage="*Required" ControlToValidate="txtCity"></asp:RequiredFieldValidator>
+                       </td>
+                       <td class="auto-style7">
+                           <asp:DropDownList ID="ddlState" runat="server" Height="32px" DataSourceID="SqlDataSource2" DataTextField="strState" DataValueField="intStateID">
+                           <asp:ListItem Text="--Select a State--" Value="0" />
+                           </asp:DropDownList>
+                           <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [intStateID], [strState] FROM [TStates]"></asp:SqlDataSource>
+                         <%--  <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [strState] FROM [TStates]"></asp:SqlDataSource>--%>
+                       </td>
+                       <td class="auto-style7">
+                           <asp:TextBox ID="txtZip" placeholder="Zip" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvZip" runat="server" ErrorMessage="*Required" ControlToValidate="txtZip"></asp:RequiredFieldValidator>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">Home Phone>
+                       <td class="auto-style7" colspan="2">
+                           <asp:TextBox ID="txtHomePhone" placeholder="###-###-####" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvHomePhone" runat="server" ErrorMessage="*Required" ControlToValidate="txtHomePhone"></asp:RequiredFieldValidator>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">Cell Phone</td>
+                       <td class="auto-style7" colspan="2">
+                           <asp:TextBox ID="txtCellPhone" placeholder="###-###-####" runat="server" Width="125px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvCellPhone" runat="server" ErrorMessage="*Required" ControlToValidate="txtCellPhone"></asp:RequiredFieldValidator>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">Email Address</td>
+                       <td class="auto-style7" colspan="2">
+                           <asp:TextBox ID="txtEmailAddress" placeholder="Email Address" runat="server" Width="250px" Height="32px" Font-Size="Larger"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="rfvEmailAddress" runat="server" ErrorMessage="*Required" ControlToValidate="txtEmailAddress"></asp:RequiredFieldValidator>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td class="auto-style7" style="font-size: larger">Kit Size Jersey/Shorts/Socks</td>
+                       <td class="auto-style7">
+                           <asp:DropDownList ID="ddlJersey" runat="server" Height="32px" DataSourceID="SqlDataSource4" DataTextField="strShirtSize" DataValueField="intShirtSizeID">
+                           <asp:ListItem Text="--Select a Jersey Size--" Value="0" />
+                           </asp:DropDownList>
+                           <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [strShirtSize], [intShirtSizeID] FROM [TShirtSizes]"></asp:SqlDataSource>
+                       </td>
+                       <td class="auto-style7">
+                           <asp:DropDownList ID="ddlShorts" runat="server" Height="32px" DataSourceID="SqlDataSource5" DataTextField="strPantSize" DataValueField="intPantSizeID">
+                           <asp:ListItem Text="--Select a Short Size--" Value="0" />
+                           </asp:DropDownList>
+                           <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [intPantSizeID], [strPantSize] FROM [TPantSizes]"></asp:SqlDataSource>
+                       </td>
+                       <td class="auto-style7">
+                           <asp:DropDownList ID="ddlSocks" runat="server" Height="32px" AutoPostBack="True" DataSourceID="SqlDataSource6" DataTextField="strSockSize" DataValueField="intSockSizeID">
+                           <asp:ListItem Text="--Select a Sock Size--" Value="0" />
+                           </asp:DropDownList>
+                           <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [intSockSizeID], [strSockSize] FROM [TSockSizes]"></asp:SqlDataSource>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td></td>
+                       <td class="auto-style7">
+                           <asp:Button ID="btnSubmit" runat="server" Text="Submit>>" BackColor="Blue" Font-Bold="True" Font-Size="Medium" ForeColor="White" Height="40px" Width="125px" OnClick="btnSubmit_Click" />
+                       </td>
+                       <td class="auto-style7">
+                           <asp:Button ID="btnCancel" runat="server" Text="Cancel>>" BackColor="Blue" Font-Bold="True" Font-Size="Medium" ForeColor="White" Height="40px" Width="125px" OnClick="btnCancel_Click" />
+                       </td>
+                       <td>
+                           <asp:Label ID="lblSubmitComfirmation" runat="server" Text=""></asp:Label>
+                       </td>
+                   </tr>
+               </table>
+
+               <asp:Label ID="lblPlayerID" runat="server" ></asp:Label>
+
+           </div>
+</asp:Content>
+
+
+----------------------------------------------------------------------------------
+--Back end code
+----------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+
+public partial class SitePages_4YearOldRegistration : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        SqlConnection con = new SqlConnection("Data Source=LAPTOP-A9L1AM9G;Initial Catalog=dbSQL2;Integrated Security=SSPI;");
+
+
+
+        //create an insert that will be used to insert records into the contact table through the uspAddCoach stored procedure
+        //SqlCommand cmd = new SqlCommand("uspAddPlayer", con);
+        //cmd.CommandType = CommandType.StoredProcedure;
+
+        string query = "INSERT into TPlayers ( intPlayerID, strFirstName, strMiddleName,  strLastName, intAgeGroupID, dtmDateOfBirth, intGenderID, strAddress, strCity, intStateID, strZip, strHomePhone, strCellPhone, strEmailAddress, intShirtSizeID, intSockSizeID, intPantSizeID ) Values ((SELECT COALESCE(MAX(intPlayerID),0) + 1 FROM TPlayers), @strFirstName, @strMiddleName, @strLastName, @intAgeGroupID, @dtmDateOfBirth, @intGenderID, @strAddress, @strCity, @intStateID, @strZip, @strHomePhone, @strCellPhone, @strEmailAddress, @intShirtSizeID, @intSockSizeID, @intPantSizeID )";
+        SqlCommand cmd = new SqlCommand(query, con);
+
+        cmd.Parameters.AddWithValue("intPlayerID", lblPlayerID.Text);
+        cmd.Parameters.AddWithValue("strFirstName", txtFirstName.Text);
+        cmd.Parameters.AddWithValue("strMiddleName", txtMiddleName.Text);
+        cmd.Parameters.AddWithValue("strLastName", txtLastName.Text);
+        cmd.Parameters.AddWithValue("intAgeGroupID", ddlAgeGroup.SelectedValue);
+        cmd.Parameters.AddWithValue("dtmDateOfBirth", txtDateOfBirth.Text);
+        cmd.Parameters.AddWithValue("intGenderID", ddlGender.SelectedValue);
+        cmd.Parameters.AddWithValue("strAddress", txtAddress.Text);
+        cmd.Parameters.AddWithValue("strCity", txtCity.Text);
+        cmd.Parameters.AddWithValue("intStateID", ddlState.SelectedValue);
+        cmd.Parameters.AddWithValue("strZip", txtZip.Text);
+        cmd.Parameters.AddWithValue("strHomePhone", txtHomePhone.Text);
+        cmd.Parameters.AddWithValue("strCellPhone", txtCellPhone.Text);
+        cmd.Parameters.AddWithValue("strEmailAddress", txtEmailAddress.Text);
+        cmd.Parameters.AddWithValue("intShirtSizeID", ddlJersey.SelectedValue);
+        cmd.Parameters.AddWithValue("intSockSizeID", ddlSocks.SelectedValue);
+        cmd.Parameters.AddWithValue("intPantSizeID", ddlShorts.SelectedValue);
+        con.Open();
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+
+    }
+}
